@@ -1,2 +1,0 @@
-datasets/resume.zip filter=lfs diff=lfs merge=lfs -text
-datasets/GoogleNews-vectors-negative300-SLIM.bin filter=lfs diff=lfs merge=lfs -text
