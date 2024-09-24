@@ -4,9 +4,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chains.sequential import SimpleSequentialChain,SequentialChain
 from langchain.chains.llm import LLMChain
 import streamlit as st
-
-
-
+# loding key for openAi
 load_dotenv()
 
 def main():
