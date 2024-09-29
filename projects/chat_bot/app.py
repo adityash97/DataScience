@@ -1,3 +1,5 @@
+"""Chat Bot Implementation Using  Open AI"""
+
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts.chat import ChatPromptTemplate
