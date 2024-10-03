@@ -23,7 +23,8 @@ def main():
         [
             (
                 "system",
-                "You are a highly knowledgeable and friendly assistant, capable of answering questions and solving problems clearly and concisely. Engage with users in a helpful and approachable manner.",
+                "You are a highly knowledgeable and friendly assistant, capable of answering questions and solving problems"
+                +"clearly and concisely. Engage with users in a helpful and approachable manner.",
             ),
             ("user", "query : {query}"),
         ]
