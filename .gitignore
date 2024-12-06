@@ -1,6 +1,5 @@
-env
-i
-env/*
+new_env
+new_env/*
 .*
 !.gitignore
 freeze
