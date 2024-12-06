@@ -4,6 +4,8 @@ from gensim.models import Word2Vec
 import string
 import numpy as np
 import nltk
+import os
+
 
 nltk.download("stopwords")
 from nltk.corpus import stopwords
@@ -15,7 +17,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 
 nltk.download("stopwords")
-path = "./IndianFoodDatasetCSV.csv"
+path = os.path.join(os.path.dirname(__file__), 'IndianFoodDatasetCSV.csv')
+
+# path = "./IndianFoodDatasetCSV.csv"
 sampled_data = pd.read_csv(path)
 
 stemmer_instance = nltk.stem.PorterStemmer()
