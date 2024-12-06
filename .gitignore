@@ -1,0 +1,14 @@
+env
+i
+env/*
+.*
+!.gitignore
+freeze
+references
+resources/*
+!resources/IndianFoodDatasetCSV.csv
+projects/*/.env
+langchain_components_example/prac.ipynb
+langchain_components_example/*.db*
+langchain_components_example/example.*
+
