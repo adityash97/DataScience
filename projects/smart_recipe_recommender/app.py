@@ -18,6 +18,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 nltk.download("stopwords")
 path = os.path.join(os.path.dirname(__file__), 'IndianFoodDatasetCSV.csv')
+output_dir = os.path.abspath("output_files")
+os.makedirs(output_dir, exist_ok=True)
 
 # path = "./IndianFoodDatasetCSV.csv"
 sampled_data = pd.read_csv(path)
@@ -43,9 +45,15 @@ def tokenize_recipe(text):
 
 @st.cache_data
 def load_combined_data_and_model():
-    with open("final_embeddings.pkl", "rb") as file:
+    file_dir = "output_files"  
+    
+    # Construct file paths
+    embeddings_path = os.path.join(file_dir, "final_embeddings.pkl")
+    tfidf_model_path = os.path.join(file_dir, "tfidf_model.pkl")
+    
+    with open(embeddings_path, "rb") as file:
         combined_data = pickle.load(file)
-    with open("tfidf_model.pkl", "rb") as file:
+    with open(tfidf_model_path, "rb") as file:
         tfidf_model = pickle.load(file)
     return combined_data, tfidf_model
 
@@ -93,10 +101,10 @@ def compute_and_store_embeddings(data_frame):
         [vectorized_text.toarray(), np.array(ingredient_vectors)], axis=1
     )
 
-    with open("final_embeddings.pkl", "wb") as embedding_file:
+    with open(os.path.join(output_dir, "final_embeddings.pkl"), "wb") as embedding_file:
         pickle.dump(final_embeddings, embedding_file)
 
-    with open("tfidf_model.pkl", "wb") as tfidf_file:
+    with open(os.path.join(output_dir, "tfidf_model.pkl"), "wb") as tfidf_file:
         pickle.dump(tfidf_model, tfidf_file)
 
     print("Embeddings and TF-IDF vectorizer successfully saved!")
