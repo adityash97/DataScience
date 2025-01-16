@@ -11,13 +11,14 @@ from typing import Optional,Type,Literal,TypedDict
 from pydantic import BaseModel
 from typing import List
 from IPython.display import display,Image
+import streamlit as st
 
 load_dotenv()
 llm = ChatOpenAI(model="gpt-4o-mini")
 
 # dataset
-# movie_data_set = pd.read_csv('./sample_100mb.csv')
-# movie_data_set.drop(columns=['Unnamed: 0'],inplace=True)
+movie_data_set = pd.read_csv('./sample_100mb.csv')
+movie_data_set.drop(columns=['Unnamed: 0'],inplace=True)
 
 """get colums and other details"""
 
@@ -117,6 +118,11 @@ def execute_query(state:DataState):
 
 """Get user query"""
 
+# Display a text input box for the user query
+user_query = st.text_input("Enter your query:")
 
+# Store the input in a variable and display it
+if user_query:
+    st.write("You entered:", user_query)
 
 """Output to frontend"""
