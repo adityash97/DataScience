@@ -12,4 +12,5 @@ projects/*/output_files/*.pkl
 langchain_components_example/prac.ipynb
 langchain_components_example/*.db*
 langchain_components_example/example.*
+*/*/__*
 
