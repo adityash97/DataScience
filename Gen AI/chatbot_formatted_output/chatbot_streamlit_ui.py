@@ -25,9 +25,7 @@ if st.button("Extract Data"):
         """
 
         llm = ChatMistralAI(
-            model="mistral-small-latest",
-            api_key=mistral_api_key,
-            temperature=0
+            model="mistral-small-latest", api_key=mistral_api_key, temperature=0
         )
 
         structured_output = llm.with_structured_output(ResumeDataModel)
