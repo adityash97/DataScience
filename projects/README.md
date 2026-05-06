@@ -229,7 +229,6 @@ exec(f"result = {state['llm_response']}", {}, local_vars)
 Aditya Anand
 
 * GitHub: https://github.com/adityash97
-* LinkedIn: https://www.linkedin.com/in/adityash97/
 
 ---
 
