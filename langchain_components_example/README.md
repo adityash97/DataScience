@@ -86,7 +86,7 @@ pip install -r requirements.txt
 Clone the repository:
 
 ```bash
-git clone <your-repository-url>
+git clone [<your-repository-url>](https://github.com/adityash97/DataScience.git)
 cd langchain_components_example
 ```
 
