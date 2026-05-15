@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Geist:wght@400;500;600;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0A0A0B;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #26262C;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #333;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#3c4a42",
+                        "on-secondary": "#002e6a",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-primary-fixed-variant": "#005236",
+                        "surface": "#131317",
+                        "on-tertiary-fixed": "#410005",
+                        "secondary-container": "#0566d9",
+                        "surface-container-high": "#2a2a2e",
+                        "primary": "#4edea3",
+                        "tertiary": "#ffb3af",
+                        "secondary-fixed": "#d8e2ff",
+                        "primary-container": "#10b981",
+                        "inverse-surface": "#e4e1e7",
+                        "surface-tint": "#4edea3",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#bbcabf",
+                        "tertiary-container": "#fc7c78",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "inverse-primary": "#006c49",
+                        "on-background": "#e4e1e7",
+                        "on-secondary-fixed": "#001a42",
+                        "on-tertiary-fixed-variant": "#842225",
+                        "inverse-on-surface": "#303034",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed": "#002113",
+                        "on-tertiary-container": "#711419",
+                        "on-primary": "#003824",
+                        "surface-container-lowest": "#0e0e12",
+                        "surface-bright": "#39393d",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "on-secondary-container": "#e6ecff",
+                        "surface-container": "#1f1f23",
+                        "secondary": "#adc6ff",
+                        "on-surface": "#e4e1e7",
+                        "background": "#131317",
+                        "on-primary-container": "#00422b",
+                        "surface-container-highest": "#353439",
+                        "surface-dim": "#131317",
+                        "on-error": "#690005",
+                        "primary-fixed": "#6ffbbe",
+                        "primary-fixed-dim": "#4edea3",
+                        "outline": "#86948a",
+                        "error-container": "#93000a",
+                        "surface-variant": "#353439",
+                        "on-tertiary": "#650911",
+                        "surface-container-low": "#1b1b1f",
+                        "tertiary-fixed": "#ffdad7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "container-max": "1440px",
+                        "margin-desktop": "32px",
+                        "gutter": "16px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["JetBrains Mono"],
+                        "headline-sm": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "code-block": ["JetBrains Mono"],
+                        "label-sm": ["JetBrains Mono"],
+                        "body-lg": ["Geist"],
+                        "body-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-md": ["13px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-sm": ["18px", { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "code-block": ["13px", { "lineHeight": "1.7", "fontWeight": "400" }],
+                        "label-sm": ["11px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-surface font-body-md selection:bg-primary/30 selection:text-primary">
+    <div class="flex h-screen overflow-hidden">
+        <!-- SideNavBar Component -->
+        <aside class="flex flex-col h-screen w-64 bg-surface-container-low border-r border-outline-variant sticky top-0">
+            <!-- Brand Section -->
+            <div class="p-6">
+                <div class="font-headline-md text-headline-md font-black text-primary flex items-center gap-2">
+                    <span class="material-symbols-outlined" data-weight="fill">hub</span>
+                    <span>AI Orchestrator</span>
+                </div>
+                <div class="mt-4 flex items-center gap-3 p-2 rounded-lg bg-surface-container">
+                    <img alt="Orchestrator Admin" class="w-8 h-8 rounded-full border border-outline-variant"
+                        data-alt="A professional profile avatar of a tech-focused administrator, presented in a clean, minimalist digital illustration style. The character features subtle neon emerald green highlights against a dark charcoal background, matching a high-end developer dashboard aesthetic. The lighting is soft and directional, emphasizing clarity and a modern, high-tech persona within an AI orchestration platform."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZSSmNKSzy6N9q_a6DVsjOsm_DBCFXvpm1Bdf9_qcGJsZc5hsvt4Bywi0fJ11GPzn0efOsjMMSVp-A-iPhWkEMUEsJitKbWON6p4_ApbpdSUOJRU3K-ZAO5ukUogz45AwknyNfiFL4r4NO68yoSOS4Axk7Xqw9U0QAb_mjYBElLjySo-gov5xvO0HqHH2PPqLlV6C01tabmg1SGEYxMpnEvGX9CcnezsQ0o_luijOK8vu4eMpvuaNAbcKN-SvwxX-vIW2o13Hu2YI" />
+                    <div class="overflow-hidden">
+                        <p class="font-label-md text-label-md text-on-surface truncate">Admin</p>
+                        <p class="font-label-sm text-label-sm text-primary opacity-80">Active Session</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Navigation Links -->
+            <nav class="flex-1 px-4 space-y-1">
+                <!-- Dashboard (Active) -->
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary bg-surface-container-high border-r-4 border-primary transition-all duration-200"
+                    href="#">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="font-label-md text-label-md">Dashboard</span>
+                </a>
+                <!-- Agents -->
+                <!-- <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-md text-label-md">Agents</span>
+</a> -->
+                <!-- Workflows -->
+                <!-- <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label-md text-label-md">Workflows</span>
+</a> -->
+                <!-- Analytics -->
+                <!-- <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a> -->
+            </nav>
+            <!-- CTA -->
+            <div class="px-4 mb-4">
+                <button
+                    class="w-full py-3 bg-primary text-on-primary font-bold rounded-lg flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all">
+                    <span class="material-symbols-outlined">add</span>
+                    <span class="font-label-md text-label-md">New Workflow</span>
+                </button>
+            </div>
+            <!-- Footer Tabs -->
+            <div class="p-4 border-t border-outline-variant space-y-1">
+                <a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all"
+                    href="#">
+                    <span class="material-symbols-outlined">description</span>
+                    <span class="font-label-md text-label-md">Docs</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all"
+                    href="#">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="font-label-md text-label-md">Logout</span>
+                </a>
+            </div>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+            <!-- TopNavBar (Integrated Layout) -->
+            <!-- <header
+                class="flex justify-between items-center w-full px-margin-desktop h-16 bg-surface border-b border-outline-variant sticky top-0 z-40">
+                <div class="flex items-center gap-8">
+                    <h1 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Overview</h1>
+                    <nav class="hidden md:flex gap-6">
+                        <a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md"
+                            href="#">History</a>
+                        <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md"
+                            href="#">Logs</a>
+                    </nav>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="relative group">
+                        <input
+                            class="bg-surface-container-low border border-outline-variant rounded-full px-4 py-1.5 text-sm w-64 focus:outline-none focus:border-primary transition-all"
+                            placeholder="Search resources..." type="text" />
+                        <span
+                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+                    </div>
+                    <button class="text-on-surface-variant hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <button class="text-on-surface-variant hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">settings</span>
+                    </button>
+                </div>
+            </header> -->
+            <div class="p-8 space-y-8 max-w-[1600px] mx-auto w-full">
+                <!-- Section 1: Query Input -->
+                <section class="bg-surface-container border border-outline-variant rounded-xl p-6">
+                    <div class="flex gap-4">
+                        <div class="flex-1 relative">
+                            <input
+                                class="w-full bg-background border border-outline-variant rounded-lg px-5 py-4 font-body-lg text-body-lg text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-on-surface-variant/50"
+                                placeholder="Enter orchestration prompt..." type="text"
+                                value="Analyze Tesla stock and generate investment summary" />
+                            <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                                <span
+                                    class="px-2 py-1 bg-surface-container-high rounded text-on-surface-variant font-label-sm text-label-sm border border-outline-variant">⌘
+                                    K</span>
+                            </div>
+                        </div>
+                        <button
+                            class="px-8 bg-primary text-on-primary font-bold rounded-lg flex items-center gap-2 hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/10">
+                            <span class="material-symbols-outlined">bolt</span>
+                            <span class="font-headline-sm text-headline-sm">Execute</span>
+                        </button>
+                    </div>
+                </section>
+                <!-- Section 2: Workflow Visualizer -->
+                <section class="bg-surface-container-low border border-outline-variant rounded-xl p-8">
+                    <div class="flex items-center justify-between mb-10">
+                        <h2 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">account_tree</span>
+                            Active Workflow Stream
+                        </h2>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                            <span class="font-label-md text-label-md text-primary">Orchestrating...</span>
+                        </div>
+                    </div>
+                    <div class="relative flex justify-between items-center px-4">
+                        <!-- Connecting Lines -->
+                        <div class="absolute top-1/2 left-0 w-full h-[2px] bg-outline-variant -translate-y-1/2 z-0">
+                            <div class="h-full bg-primary transition-all duration-1000" style="width: 35%;"></div>
+                        </div>
+                        <!-- Step 1: Planner -->
+                        <div class="relative z-10 flex flex-col items-center gap-3">
+                            <div
+                                class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center border-2 border-primary shadow-lg shadow-primary/20">
+                                <span class="material-symbols-outlined">check</span>
+                            </div>
+                            <div class="text-center">
+                                <p class="font-label-md text-label-md text-on-surface font-bold">Planner</p>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Completed</p>
+                            </div>
+                        </div>
+                        <!-- Step 2: Retriever (Active) -->
+                        <div class="relative z-10 flex flex-col items-center gap-3">
+                            <div
+                                class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center border-2 border-primary animate-pulse shadow-[0_0_20px_rgba(78,222,163,0.3)]">
+                                <span class="material-symbols-outlined text-primary"
+                                    data-weight="fill">cloud_download</span>
+                            </div>
+                            <div class="text-center">
+                                <p class="font-label-md text-label-md text-primary font-black uppercase tracking-wider">
+                                    Retriever</p>
+                                <p class="font-label-sm text-label-sm text-primary">Processing...</p>
+                            </div>
+                        </div>
+                        <!-- Step 3: Analyst -->
+                        <div class="relative z-10 flex flex-col items-center gap-3">
+                            <div
+                                class="w-12 h-12 rounded-full bg-surface-container border-2 border-outline-variant flex items-center justify-center text-on-surface-variant">
+                                <span class="material-symbols-outlined">monitoring</span>
+                            </div>
+                            <div class="text-center">
+                                <p class="font-label-md text-label-md text-on-surface-variant">Analyst</p>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant/50">Pending</p>
+                            </div>
+                        </div>
+                        <!-- Step 4: Critic -->
+                        <div class="relative z-10 flex flex-col items-center gap-3">
+                            <div
+                                class="w-12 h-12 rounded-full bg-surface-container border-2 border-outline-variant flex items-center justify-center text-on-surface-variant">
+                                <span class="material-symbols-outlined">gavel</span>
+                            </div>
+                            <div class="text-center">
+                                <p class="font-label-md text-label-md text-on-surface-variant">Critic</p>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant/50">Pending</p>
+                            </div>
+                        </div>
+                        <!-- Step 5: Final Response -->
+                        <div class="relative z-10 flex flex-col items-center gap-3">
+                            <div
+                                class="w-12 h-12 rounded-full bg-surface-container border-2 border-outline-variant flex items-center justify-center text-on-surface-variant">
+                                <span class="material-symbols-outlined">auto_awesome</span>
+                            </div>
+                            <div class="text-center">
+                                <p class="font-label-md text-label-md text-on-surface-variant">Final Response</p>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant/50">Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Section 3: Bottom Two-Column Content -->
+                <div class="grid grid-cols-10 gap-gutter h-[400px]">
+                    <!-- Left (60%): Execution Logs Panel -->
+                    <div
+                        class="col-span-6 bg-[#0A0A0B] border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+                        <div
+                            class="bg-surface-container-high px-4 py-2 border-b border-outline-variant flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="flex gap-1.5">
+                                    <div class="w-3 h-3 rounded-full bg-error/30 border border-error/50"></div>
+                                    <div
+                                        class="w-3 h-3 rounded-full bg-tertiary-container/30 border border-tertiary-container/50">
+                                    </div>
+                                    <div class="w-3 h-3 rounded-full bg-primary/30 border border-primary/50"></div>
+                                </div>
+                                <span
+                                    class="ml-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Execution
+                                    Logs</span>
+                            </div>
+                            <span class="font-label-sm text-label-sm text-primary opacity-60">session_id:
+                                flow-8812</span>
+                        </div>
+                        <div class="flex-1 p-6 font-code-block text-code-block overflow-y-auto space-y-3">
+                            <div class="flex gap-4">
+                                <span class="text-on-surface-variant/30 select-none">001</span>
+                                <p class="text-primary-container">[INFO] <span class="text-on-surface">Initializing
+                                        Multi-Agent Session...</span></p>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-on-surface-variant/30 select-none">002</span>
+                                <p class="text-primary-container">[PLANNER] <span class="text-on-surface">Decomposing
+                                        query: "Analyze Tesla stock..."</span></p>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-on-surface-variant/30 select-none">003</span>
+                                <p class="text-primary-container">[PLANNER] <span class="text-on-surface">Task 1: Fetch
+                                        SEC 10-K filings. Task 2: Search news (7d). Task 3: Quantitative
+                                        analysis.</span></p>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-on-surface-variant/30 select-none">004</span>
+                                <p class="text-secondary-container">[RETRIEVER] <span class="text-on-surface">Fetching
+                                        data from SEC filings...</span></p>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-on-surface-variant/30 select-none">005</span>
+                                <p class="text-secondary-container">[RETRIEVER] <span class="text-on-surface">Querying
+                                        internal knowledge graph for market context.</span></p>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-on-surface-variant/30 select-none">006</span>
+                                <p class="text-secondary-container">[RETRIEVER] <span class="text-on-surface">Searching
+                                        latest news via Perplexity API...</span></p>
+                            </div>
+                            <div class="flex gap-4 animate-pulse">
+                                <span class="text-on-surface-variant/30 select-none">007</span>
+                                <p class="text-primary">_</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right (40%): Response Panel -->
+                    <div
+                        class="col-span-4 bg-surface-container border border-outline-variant rounded-xl flex flex-col shadow-xl">
+                        <div class="p-6 border-b border-outline-variant flex items-center justify-between">
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary-container">article</span>
+                                Final Response
+                            </h3>
+                            <button class="text-on-surface-variant hover:text-on-surface">
+                                <span class="material-symbols-outlined">open_in_full</span>
+                            </button>
+                        </div>
+                        <div class="flex-1 p-6 overflow-y-auto">
+                            <div class="bg-background rounded-lg border border-outline-variant p-5 space-y-4">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="w-1 h-4 bg-primary rounded-full"></span>
+                                    <h4 class="font-label-md text-label-md text-on-surface font-bold">Executive Summary:
+                                        TSLA</h4>
+                                </div>
+                                <p class="text-on-surface-variant text-body-md leading-relaxed">
+                                    Tesla, Inc. (TSLA) shows strong fundamentals in its latest quarterly filings with a
+                                    23% increase in solar deployment and record-breaking delivery numbers in APAC
+                                    regions.
+                                </p>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="p-3 bg-surface rounded border border-outline-variant">
+                                        <p class="font-label-sm text-label-sm text-on-surface-variant">Sentiment</p>
+                                        <p class="font-headline-sm text-headline-sm text-primary">Bullish</p>
+                                    </div>
+                                    <div class="p-3 bg-surface rounded border border-outline-variant">
+                                        <p class="font-label-sm text-label-sm text-on-surface-variant">Confidence</p>
+                                        <p class="font-headline-sm text-headline-sm text-primary">94%</p>
+                                    </div>
+                                </div>
+                                <p class="text-on-surface-variant text-body-md leading-relaxed">
+                                    Key risks identified by the Critic agent include potential supply chain volatility
+                                    in lithium sourcing and increased competitive pressure from European EV
+                                    manufacturers...
+                                </p>
+                                <div class="pt-4 border-t border-outline-variant flex justify-end gap-2">
+                                    <button
+                                        class="px-3 py-1.5 rounded bg-surface border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors">
+                                        Export PDF
+                                    </button>
+                                    <button
+                                        class="px-3 py-1.5 rounded bg-primary text-on-primary font-label-md text-label-md font-bold hover:opacity-90">
+                                        Copy to Clipboard
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
