@@ -40,6 +40,14 @@ AI_Orchestrator/
 │       │   └── router/routes.js
 │       └── quasar.config.js
 ├── .venv/                        # Python 3.14 virtualenv
+├── ai/                           # LangGraph engine (M3)
+│   ├── state/
+│   │   └── workflow_state.py     # WorkflowState TypedDict
+│   ├── nodes/
+│   │   └── nodes.py              # input_node, processing_node, output_node
+│   ├── graphs/
+│   │   └── workflow_graph.py     # build_workflow_graph() — compiled StateGraph
+│   └── runner.py                 # run_workflow() — entry point for API
 ├── health/                       # Health check app (M1 Step 6)
 │   ├── __init__.py
 │   ├── views.py
@@ -97,7 +105,7 @@ AI_Orchestrator/
 
 ---
 
-### Milestone 2 — Workflow Models & Execution APIs
+### Milestone 2 — Workflow Models & Execution APIs ✅ COMPLETE
 
 | Step | Description | Status |
 |------|-------------|--------|
@@ -112,12 +120,27 @@ AI_Orchestrator/
 
 ---
 
+### Milestone 3 — LangGraph Base Integration
+
+| Step | Description | Status |
+|------|-------------|--------|
+| Step 1 | Install langgraph + langchain-core, update requirements.txt | ✅ Done |
+| Step 2 | Create `ai/` folder structure (state/, nodes/, graphs/) | ✅ Done |
+| Step 3 | Implement shared workflow state (`ai/state/workflow_state.py`) | ✅ Done |
+| Step 4 | Implement basic nodes — input, processing, output (`ai/nodes/nodes.py`) | ✅ Done |
+| Step 5 | Implement graph builder — linear START→input→processing→output→END (`ai/graphs/workflow_graph.py`) | ✅ Done |
+| Step 6 | Implement workflow runner service (`ai/runner.py`) | ✅ Done |
+| Step 7 | Wire runner into `POST /api/workflows/<pk>/run/` — replace mock helper | ✅ Done |
+| Step 8 | Final validation | ✅ Done |
+
+---
+
 ## 5. CURRENT_AGENT_STATUS
 
 ```
 ==================================================
 CURRENT_STEP:
-Milestone 2 — COMPLETE
+Milestone 3 — COMPLETE
 
 STATUS:
 DONE
@@ -126,10 +149,16 @@ LAST_COMPLETED_STEP:
 Step 8 — Final validation
 
 NEXT_MILESTONE:
-Milestone 3 — Frontend API Integration (replace mock store data with real API calls)
+Milestone 4 — Frontend API Integration (replace Pinia mock store with real API calls)
 
 NOTES:
-- Workflow model: name, description, workflow_type, configuration (JSONField), is_active, timestamps
+- M3: LangGraph graph executes START→input→processing→output→END, all 3 nodes log + return state updates
+- WorkflowState TypedDict uses Annotated[list[str], operator.add] for messages (LangGraph reducer pattern)
+- run_workflow() in ai/runner.py: initialises state, invokes compiled graph, returns success/fail dict
+- workflow_run view now creates execution as RUNNING, invokes runner, then updates to COMPLETED/FAILED
+- _mock_execution_output() removed — replaced by real LangGraph graph invoke
+- Verified live: POST /api/workflows/1/run/ → 201, all node logs visible, output_payload populated
+- M2: Workflow model: name, description, workflow_type, configuration (JSONField), is_active, timestamps
 - WorkflowExecution model: FK to Workflow, status choices (pending/running/completed/failed), input/output JSONFields, timestamps
 - Migration 0001_initial applied cleanly
 - WorkflowSerializer + WorkflowExecutionSerializer (ModelSerializer, workflow_name read-only field)

@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 
+from ai.runner import run_workflow
 from utils.response import error_response, success_response
 
 from .models import Workflow, WorkflowExecution
@@ -55,19 +56,31 @@ def workflow_run(request: Request, pk: int):
         return error_response(message='Workflow not found', status=404)
 
     input_payload = request.data.get('input_payload', {})
+    user_input = input_payload.get('query', '')
 
     execution = WorkflowExecution.objects.create(
         workflow=workflow,
-        status=WorkflowExecution.Status.COMPLETED,
+        status=WorkflowExecution.Status.RUNNING,
         input_payload=input_payload,
-        output_payload=_mock_execution_output(workflow, input_payload),
         started_at=datetime.now(timezone.utc),
-        completed_at=datetime.now(timezone.utc),
     )
 
-    logger.info('Mock execution completed: workflow=%s execution=%s', workflow.name, execution.id)
+    result = run_workflow(
+        workflow_id=workflow.id,
+        execution_id=execution.id,
+        user_input=user_input,
+    )
+
+    execution.status = WorkflowExecution.Status.COMPLETED if result['success'] else WorkflowExecution.Status.FAILED
+    execution.output_payload = result['output']
+    execution.error_message = result.get('error', '')
+    execution.completed_at = datetime.now(timezone.utc)
+    execution.save()
+
     serializer = WorkflowExecutionSerializer(execution)
-    return success_response(data=serializer.data, message='Workflow executed', status=201)
+    if result['success']:
+        return success_response(data=serializer.data, message='Workflow executed successfully', status=201)
+    return error_response(message='Workflow execution failed', errors={'detail': result.get('error')}, status=500)
 
 
 @api_view(['GET'])
@@ -85,17 +98,3 @@ def execution_detail(request: Request, pk: int):
         return error_response(message='Execution not found', status=404)
     serializer = WorkflowExecutionSerializer(execution)
     return success_response(data=serializer.data)
-
-
-# ---------------------------------------------------------------------------
-# Mock execution helper (replaced by LangGraph in a future milestone)
-# ---------------------------------------------------------------------------
-
-def _mock_execution_output(workflow: Workflow, input_payload: dict) -> dict:
-    query = input_payload.get('query', '')
-    return {
-        'summary': f'Mock execution of "{workflow.name}" completed successfully.',
-        'query': query,
-        'agents': ['Planner', 'Retriever', 'Analyst', 'Critic', 'Final Response'],
-        'result': 'This is a placeholder result. LangGraph integration is pending.',
-    }
