@@ -31,6 +31,7 @@ class WorkflowExecution(models.Model):
     class Status(models.TextChoices):
         PENDING = 'pending', 'Pending'
         RUNNING = 'running', 'Running'
+        RETRYING = 'retrying', 'Retrying'
         COMPLETED = 'completed', 'Completed'
         FAILED = 'failed', 'Failed'
 
