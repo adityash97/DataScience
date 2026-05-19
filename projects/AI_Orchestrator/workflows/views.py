@@ -12,6 +12,12 @@ from .serializers import WorkflowExecutionSerializer, WorkflowSerializer
 
 logger = logging.getLogger(__name__)
 
+_STATUS_MAP = {
+    'completed': WorkflowExecution.Status.COMPLETED,
+    'retrying':  WorkflowExecution.Status.RETRYING,
+    'failed':    WorkflowExecution.Status.FAILED,
+}
+
 
 # ---------------------------------------------------------------------------
 # Workflow APIs
@@ -71,16 +77,29 @@ def workflow_run(request: Request, pk: int):
         user_input=user_input,
     )
 
-    execution.status = WorkflowExecution.Status.COMPLETED if result['success'] else WorkflowExecution.Status.FAILED
+    execution.status = _STATUS_MAP.get(result['status'], WorkflowExecution.Status.FAILED)
     execution.output_payload = result['output']
     execution.error_message = result.get('error', '')
     execution.completed_at = datetime.now(timezone.utc)
     execution.save()
 
     serializer = WorkflowExecutionSerializer(execution)
+    response_data = {
+        **serializer.data,
+        'routing': {
+            'retry_count': result['retry_count'],
+            'final_step': result['current_step'],
+            'status': result['status'],
+        },
+    }
+
     if result['success']:
-        return success_response(data=serializer.data, message='Workflow executed successfully', status=201)
-    return error_response(message='Workflow execution failed', errors={'detail': result.get('error')}, status=500)
+        return success_response(data=response_data, message='Workflow executed successfully', status=201)
+    return error_response(
+        message='Workflow execution failed',
+        errors={'detail': result.get('error'), 'retry_count': result['retry_count']},
+        status=500,
+    )
 
 
 @api_view(['GET'])

@@ -20,3 +20,5 @@ staticfiles/
 
 # OS
 .DS_Store
+
+PROJECT_CONTEXT.md
