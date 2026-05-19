@@ -19,6 +19,11 @@ def run_workflow(workflow_id: int, execution_id: int, user_input: str) -> dict:
         'retry_count': 0,
         'execution_plan': {},
         'execution_result': {},
+        'tools_required': [],
+        'tool_used': '',
+        'tool_input': {},
+        'tool_result': {},
+        'execution_steps': [],
         'messages': [],
         'output': {},
         'error': '',
@@ -29,8 +34,13 @@ def run_workflow(workflow_id: int, execution_id: int, user_input: str) -> dict:
         graph = build_workflow_graph()
         final_state = graph.invoke(initial_state)
         status = final_state.get('status', 'completed')
-        logger.info('Workflow finished — execution_id=%s status=%s retries=%s',
-                    execution_id, status, final_state.get('retry_count', 0))
+        logger.info(
+            'Workflow finished — execution_id=%s status=%s retries=%s tool=%s',
+            execution_id,
+            status,
+            final_state.get('retry_count', 0),
+            final_state.get('tool_used') or 'none',
+        )
         return {
             'success': status != 'failed',
             'status': status,
@@ -38,6 +48,9 @@ def run_workflow(workflow_id: int, execution_id: int, user_input: str) -> dict:
             'messages': final_state.get('messages', []),
             'retry_count': final_state.get('retry_count', 0),
             'current_step': final_state.get('current_step', ''),
+            'tool_used': final_state.get('tool_used', ''),
+            'tool_result': final_state.get('tool_result', {}),
+            'execution_steps': final_state.get('execution_steps', []),
         }
     except Exception as exc:
         logger.exception('Workflow crashed — execution_id=%s', execution_id)
@@ -48,5 +61,8 @@ def run_workflow(workflow_id: int, execution_id: int, user_input: str) -> dict:
             'messages': [],
             'retry_count': 0,
             'current_step': 'error',
+            'tool_used': '',
+            'tool_result': {},
+            'execution_steps': [],
             'error': str(exc),
         }
