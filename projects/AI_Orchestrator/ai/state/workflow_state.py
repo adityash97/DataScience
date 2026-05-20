@@ -23,6 +23,15 @@ class WorkflowState(TypedDict):
     execution_result: dict
     output: dict
 
+    # Tool calling (M6)
+    tools_required: list[str]
+    tool_used: str
+    tool_input: dict
+    tool_result: dict
+
+    # Step-by-step execution trace
+    execution_steps: Annotated[list[dict], operator.add]
+
     # Message log — appended by each node via LangGraph reducer
     messages: Annotated[list[str], operator.add]
 
