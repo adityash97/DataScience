@@ -6,19 +6,32 @@
         Active Workflow Stream
       </h2>
       <div class="flex items-center gap-2">
-        <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-        <span class="text-primary" style="font-family: 'JetBrains Mono'; font-size: 12px; font-weight: 500">{{ isOrchestrating ? 'Orchestrating...' : 'Ready' }}</span>
+        <span class="w-2 h-2 bg-primary rounded-full" :class="{ 'animate-pulse': isOrchestrating }"></span>
+        <span class="text-primary" style="font-family: 'JetBrains Mono'; font-size: 12px; font-weight: 500">
+          {{ statusLabel }}
+        </span>
       </div>
     </div>
 
-    <div class="relative flex justify-between items-center px-4">
-      <!-- Connecting Lines -->
-      <div class="absolute top-1/2 left-0 w-full h-[2px] bg-outline-variant -translate-y-1/2 z-0">
-        <div class="h-full bg-primary transition-all duration-1000" :style="{ width: progress + '%' }"></div>
+    <div class="relative flex items-center px-2 py-4">
+      <!-- Connecting track (gray) — sits between first and last circle centers.
+           top offset = parent_center - (label_h + gap)/2 so the line passes through circle centers,
+           not the labels below them. -->
+      <div
+        class="absolute h-[2px] bg-outline-variant z-0"
+        style="left: 26px; right: 26px; top: calc(50% - 17px); transform: translateY(-50%);"
+      >
+        <!-- Progress fill (primary) -->
+        <div
+          class="h-full bg-primary transition-all duration-700"
+          :style="{ width: progress + '%' }"
+        ></div>
       </div>
 
-      <!-- Workflow Steps -->
-      <WorkflowStep v-for="step in steps" :key="step.id" :step="step" />
+      <!-- Steps distributed evenly -->
+      <div class="flex justify-between w-full relative z-10">
+        <WorkflowStep v-for="step in steps" :key="step.id" :step="step" />
+      </div>
     </div>
   </section>
 </template>
@@ -28,10 +41,27 @@ import { computed } from 'vue'
 import { useOrchestrationStore } from 'stores/orchestration'
 import WorkflowStep from './WorkflowStep.vue'
 
-const orchestrationStore = useOrchestrationStore()
-const steps = computed(() => orchestrationStore.steps)
-const isOrchestrating = computed(() => orchestrationStore.isOrchestrating)
-const progress = computed(() => orchestrationStore.workflowProgress)
+const store = useOrchestrationStore()
+const steps = computed(() => store.steps)
+const isOrchestrating = computed(() => store.isOrchestrating)
+
+const statusLabel = computed(() => {
+  if (isOrchestrating.value) return 'Orchestrating...'
+  if (store.status === 'completed') return 'Completed'
+  if (store.status === 'failed') return 'Failed'
+  return 'Ready'
+})
+
+const progress = computed(() => {
+  const list = steps.value
+  if (!list || list.length < 2) return 0
+  let lastIdx = -1
+  list.forEach((s, i) => {
+    if (['completed', 'skipped', 'active'].includes(s.status)) lastIdx = i
+  })
+  if (lastIdx < 0) return 0
+  return Math.round((lastIdx / (list.length - 1)) * 100)
+})
 </script>
 
 <style scoped>
