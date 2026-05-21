@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#0A0A0B] border border-outline-variant rounded-xl overflow-hidden flex flex-col min-h-[100px] h-full">
+  <div class="bg-[#0A0A0B] border border-outline-variant rounded-xl overflow-hidden flex flex-col w-full min-h-[280px]">
     <!-- Header -->
     <div class="bg-surface-container-high px-4 py-2 border-b border-outline-variant flex items-center justify-between">
       <div class="flex items-center gap-2">
@@ -17,8 +17,8 @@
       </span>
     </div>
 
-    <!-- Logs Content -->
-    <div class="flex-1 p-3 overflow-y-auto space-y-2" style="font-family: 'JetBrains Mono'; font-size: 12px; line-height: 1.5; font-weight: 400">
+    <!-- Logs Content — fills panel; capped internal scroll only for very long log lists -->
+    <div class="flex-1 p-3 space-y-2 overflow-y-auto" style="font-family: 'JetBrains Mono'; font-size: 12px; line-height: 1.5; font-weight: 400; max-height: 500px;">
       <div v-for="(log, index) in logs" :key="log.id" class="flex gap-4">
         <span class="text-on-surface-variant/30 select-none" style="width: 40px; flex-shrink: 0">{{ String(index + 1).padStart(3, '0') }}</span>
         <p v-if="log.level === 'CURRENT'" class="text-primary animate-pulse">{{ log.message }}</p>

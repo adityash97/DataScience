@@ -19,6 +19,21 @@ _STATUS_MAP = {
 }
 
 
+def _execution_payload(execution: WorkflowExecution) -> dict:
+    """Build a flat, UI-friendly execution payload from a stored execution row."""
+    serializer = WorkflowExecutionSerializer(execution)
+    output = execution.output_payload or {}
+    return {
+        **serializer.data,
+        'current_agent': output.get('agents_executed', [''])[-1] if output.get('agents_executed') else '',
+        'tool_used': output.get('tool_used'),
+        'tool_result': output.get('tool_result'),
+        'execution_steps': output.get('execution_steps', []),
+        'execution_log': output.get('execution_log', []),
+        'retry_count': output.get('retry_count', 0),
+    }
+
+
 # ---------------------------------------------------------------------------
 # Workflow APIs
 # ---------------------------------------------------------------------------
@@ -83,9 +98,8 @@ def workflow_run(request: Request, pk: int):
     execution.completed_at = datetime.now(timezone.utc)
     execution.save()
 
-    serializer = WorkflowExecutionSerializer(execution)
     response_data = {
-        **serializer.data,
+        **_execution_payload(execution),
         'routing': {
             'retry_count': result['retry_count'],
             'final_step': result['current_step'],
@@ -115,5 +129,4 @@ def execution_detail(request: Request, pk: int):
         execution = WorkflowExecution.objects.select_related('workflow').get(pk=pk)
     except WorkflowExecution.DoesNotExist:
         return error_response(message='Execution not found', status=404)
-    serializer = WorkflowExecutionSerializer(execution)
-    return success_response(data=serializer.data)
+    return success_response(data=_execution_payload(execution))

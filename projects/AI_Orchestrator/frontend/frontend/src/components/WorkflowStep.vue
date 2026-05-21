@@ -99,6 +99,10 @@ const statusClasses = computed(() => {
     return 'bg-surface-container-highest text-primary border-primary animate-pulse'
   }
 
+  if (step.status === 'skipped') {
+    return 'bg-surface-container text-on-surface-variant/50 border-outline-variant/40 border-dashed'
+  }
+
   return 'bg-surface-container text-on-surface-variant border-outline-variant'
 })
 </script>

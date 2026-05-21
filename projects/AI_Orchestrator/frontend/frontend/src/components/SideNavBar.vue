@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="flex flex-col h-screen w-64 min-w-64 flex-shrink-0 overflow-y-auto bg-surface-container-low border-r border-outline-variant"
+    class="sticky top-0 flex flex-col h-screen w-64 min-w-64 flex-shrink-0 overflow-y-auto bg-surface-container-low border-r border-outline-variant"
   >
     <!-- Brand Section -->
     <div class="p-4">
