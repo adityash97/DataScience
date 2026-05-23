@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-surface-container border border-outline-variant rounded-xl p-3">
+  <section class="bg-surface-container border border-outline-variant rounded-xl p-3" style="min-width: 0">
     <div class="flex items-center justify-between mb-3">
       <h3
         class="text-on-surface flex items-center gap-2"
@@ -29,19 +29,23 @@
     </div>
 
     <div v-else class="space-y-2">
-      <div class="grid grid-cols-2 gap-2">
-        <div class="p-2 bg-surface rounded border border-outline-variant">
-          <p class="text-on-surface-variant" style="font-family: 'JetBrains Mono'; font-size: 10px">Called by</p>
-          <p class="text-on-surface" style="font-family: 'Geist'; font-size: 13px; font-weight: 500">{{ calledBy }}</p>
+      <div class="row q-col-gutter-sm">
+        <div class="col-6">
+          <div class="p-2 bg-surface rounded border border-outline-variant full-height">
+            <p class="text-on-surface-variant" style="font-family: 'JetBrains Mono'; font-size: 10px">Called by</p>
+            <p class="text-on-surface" style="font-family: 'Geist'; font-size: 13px; font-weight: 500">{{ calledBy }}</p>
+          </div>
         </div>
-        <div class="p-2 bg-surface rounded border border-outline-variant">
-          <p class="text-on-surface-variant" style="font-family: 'JetBrains Mono'; font-size: 10px">Status</p>
-          <p
-            :class="success ? 'text-primary' : 'text-error'"
-            style="font-family: 'Geist'; font-size: 13px; font-weight: 500"
-          >
-            {{ success ? 'Success' : 'Failed' }}
-          </p>
+        <div class="col-6">
+          <div class="p-2 bg-surface rounded border border-outline-variant full-height">
+            <p class="text-on-surface-variant" style="font-family: 'JetBrains Mono'; font-size: 10px">Status</p>
+            <p
+              :class="success ? 'text-primary' : 'text-error'"
+              style="font-family: 'Geist'; font-size: 13px; font-weight: 500"
+            >
+              {{ success ? 'Success' : 'Failed' }}
+            </p>
+          </div>
         </div>
       </div>
 

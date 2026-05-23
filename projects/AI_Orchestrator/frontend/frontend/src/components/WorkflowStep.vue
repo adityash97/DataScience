@@ -1,5 +1,5 @@
 <template>
-  <div class="relative z-10 flex flex-col items-center gap-2">
+  <div class="relative z-10 column items-center gap-2">
     <div
       :class="[
         'rounded-full flex items-center justify-center border-2 transition-all duration-200',

@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-4 w-full pb-4">
+  <div class="full-width q-pb-md q-gutter-y-md">
     <!-- Section 1: Query Input -->
     <QueryInputSection />
 
@@ -18,12 +18,13 @@
     <!-- Section 3: Tool Usage -->
     <ToolUsagePanel />
 
-    <!-- Section 4: Bottom Two-Column Content — grid stretches both cells to same height -->
-    <div class="grid grid-cols-10 gap-4">
-      <div class="col-span-6 flex">
+    <!-- Section 4: Bottom Two-Column Content — Quasar responsive grid.
+         Desktop (≥md): 7/5 side-by-side. Mobile/tablet (<md): stacked full-width. -->
+    <div class="row q-col-gutter-md items-stretch">
+      <div class="col-12 col-md-7" style="display: flex; min-width: 0">
         <ExecutionLogsPanel />
       </div>
-      <div class="col-span-4 flex">
+      <div class="col-12 col-md-5" style="display: flex; min-width: 0">
         <FinalResponsePanel />
       </div>
     </div>

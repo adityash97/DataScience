@@ -11,10 +11,12 @@ html {
 
 body {
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 #q-app {
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 button {
@@ -91,105 +93,15 @@ input {
   transition: opacity 0.2s ease-in-out;
 }
 
-/* Flexbox utilities */
-.flex {
-  display: flex;
-}
+/* CSS gap utility (modern; Quasar has no equivalent). Kept for flex/grid spacing. */
+.gap-1 { gap: 0.25rem; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 0.75rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.gap-8 { gap: 2rem; }
 
-.flex-col {
-  flex-direction: column;
-}
-
-.flex-1 {
-  flex: 1 1 0%;
-}
-
-.items-center {
-  align-items: center;
-}
-
-.items-start {
-  align-items: flex-start;
-}
-
-.items-end {
-  align-items: flex-end;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.justify-between {
-  justify-content: space-between;
-}
-
-.justify-end {
-  justify-content: flex-end;
-}
-
-.gap-1 {
-  gap: 0.25rem;
-}
-
-.gap-2 {
-  gap: 0.5rem;
-}
-
-.gap-3 {
-  gap: 0.75rem;
-}
-
-.gap-4 {
-  gap: 1rem;
-}
-
-.gap-6 {
-  gap: 1.5rem;
-}
-
-.gap-8 {
-  gap: 2rem;
-}
-
-/* Grid utilities */
-.grid {
-  display: grid;
-}
-
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.grid-cols-10 {
-  grid-template-columns: repeat(10, minmax(0, 1fr));
-}
-
-.col-span-4 {
-  grid-column: span 4 / span 4;
-}
-
-.col-span-6 {
-  grid-column: span 6 / span 6;
-}
-
-/* Sizing utilities */
-.w-full {
-  width: 100%;
-}
-
-.h-full {
-  height: 100%;
-}
-
-.h-screen {
-  height: 100vh;
-}
-
-.min-h-screen {
-  min-height: 100vh;
-}
-
+/* Icon/dot sizing primitives (not layout). */
 .w-2 {
   width: 0.5rem;
 }
@@ -275,11 +187,6 @@ input {
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-}
-
-.py-1.5 {
-  padding-top: 0.375rem;
-  padding-bottom: 0.375rem;
 }
 
 .py-2 {
@@ -563,15 +470,6 @@ input {
   min-width: 0;
 }
 
-.max-w-\[1600px\] {
-  max-width: 1600px;
-}
-
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .space-y-1 > * + * {
   margin-top: 0.25rem;
 }
@@ -636,14 +534,6 @@ input {
 
 .absolute {
   position: absolute;
-}
-
-.sticky {
-  position: sticky;
-}
-
-.top-0 {
-  top: 0;
 }
 
 .right-3 {

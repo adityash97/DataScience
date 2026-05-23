@@ -1,6 +1,7 @@
 <template>
   <div
-    class="bg-surface-container border border-outline-variant rounded-xl flex flex-col shadow-xl w-full min-h-[280px]"
+    class="bg-surface-container border border-outline-variant rounded-xl column shadow-xl full-width min-h-[280px]"
+    style="min-width: 0"
   >
     <div class="p-3 border-b border-outline-variant flex items-center justify-between">
       <h3
@@ -18,7 +19,7 @@
       </span>
     </div>
 
-    <div class="flex-1 p-3">
+    <div class="col-grow p-3">
       <div class="bg-background rounded-lg border border-outline-variant p-3 space-y-3">
         <div class="flex items-center gap-2 mb-2">
           <span class="w-1 h-4 bg-primary rounded-full"></span>
@@ -37,34 +38,38 @@
           {{ response.content }}
         </p>
 
-        <div class="grid grid-cols-2 gap-3">
-          <div class="p-2 bg-surface rounded border border-outline-variant">
-            <p
-              class="text-on-surface-variant"
-              style="font-family: 'JetBrains Mono'; font-size: 10px; font-weight: 500"
-            >
-              Agents executed
-            </p>
-            <p
-              class="text-primary"
-              style="font-family: 'Geist'; font-size: 13px; font-weight: 500; line-height: 1.4"
-            >
-              {{ response.agents.length ? response.agents.join(' → ') : '—' }}
-            </p>
+        <div class="row q-col-gutter-sm">
+          <div class="col-6">
+            <div class="p-2 bg-surface rounded border border-outline-variant full-height">
+              <p
+                class="text-on-surface-variant"
+                style="font-family: 'JetBrains Mono'; font-size: 10px; font-weight: 500"
+              >
+                Agents executed
+              </p>
+              <p
+                class="text-primary"
+                style="font-family: 'Geist'; font-size: 13px; font-weight: 500; line-height: 1.4"
+              >
+                {{ response.agents.length ? response.agents.join(' → ') : '—' }}
+              </p>
+            </div>
           </div>
-          <div class="p-2 bg-surface rounded border border-outline-variant">
-            <p
-              class="text-on-surface-variant"
-              style="font-family: 'JetBrains Mono'; font-size: 10px; font-weight: 500"
-            >
-              Retries
-            </p>
-            <p
-              class="text-primary"
-              style="font-family: 'Geist'; font-size: 14px; font-weight: 500; line-height: 1.4"
-            >
-              {{ response.retryCount }}
-            </p>
+          <div class="col-6">
+            <div class="p-2 bg-surface rounded border border-outline-variant full-height">
+              <p
+                class="text-on-surface-variant"
+                style="font-family: 'JetBrains Mono'; font-size: 10px; font-weight: 500"
+              >
+                Retries
+              </p>
+              <p
+                class="text-primary"
+                style="font-family: 'Geist'; font-size: 14px; font-weight: 500; line-height: 1.4"
+              >
+                {{ response.retryCount }}
+              </p>
+            </div>
           </div>
         </div>
 
