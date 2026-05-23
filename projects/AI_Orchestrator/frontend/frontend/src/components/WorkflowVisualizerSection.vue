@@ -13,24 +13,26 @@
       </div>
     </div>
 
-    <div class="relative flex items-center px-2 py-4">
-      <!-- Connecting track (gray) — sits between first and last circle centers.
-           top offset = parent_center - (label_h + gap)/2 so the line passes through circle centers,
-           not the labels below them. -->
-      <div
-        class="absolute h-[2px] bg-outline-variant z-0"
-        style="left: 26px; right: 26px; top: calc(50% - 17px); transform: translateY(-50%);"
-      >
-        <!-- Progress fill (primary) -->
+    <!-- Scroll wrapper: enables internal horizontal scroll on small viewports
+         so the step strip stays readable instead of compressing. -->
+    <div class="workflow-scroll-wrapper">
+      <div class="workflow-track relative flex items-center px-2 py-4">
+        <!-- Connecting track (gray) — sits between first and last circle centers. -->
         <div
-          class="h-full bg-primary transition-all duration-700"
-          :style="{ width: progress + '%' }"
-        ></div>
-      </div>
+          class="absolute h-[2px] bg-outline-variant z-0"
+          style="left: 26px; right: 26px; top: calc(50% - 17px); transform: translateY(-50%);"
+        >
+          <!-- Progress fill (primary) -->
+          <div
+            class="full-height bg-primary transition-all duration-700"
+            :style="{ width: progress + '%' }"
+          ></div>
+        </div>
 
-      <!-- Steps distributed evenly -->
-      <div class="flex justify-between w-full relative z-10">
-        <WorkflowStep v-for="step in steps" :key="step.id" :step="step" />
+        <!-- Steps distributed evenly -->
+        <div class="flex justify-between full-width relative z-10">
+          <WorkflowStep v-for="step in steps" :key="step.id" :step="step" />
+        </div>
       </div>
     </div>
   </section>
@@ -76,6 +78,19 @@ const progress = computed(() => {
   }
   50% {
     opacity: 0.5;
+  }
+}
+
+.workflow-scroll-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile (<md): give the step strip a min-width so circles + labels stay readable
+   and the wrapper scrolls instead. Desktop (≥md): natural width, no scroll. */
+@media (max-width: 1023px) {
+  .workflow-track {
+    min-width: 560px;
   }
 }
 </style>

@@ -1,7 +1,5 @@
 <template>
-  <aside
-    class="sticky top-0 flex flex-col h-screen w-64 min-w-64 flex-shrink-0 overflow-y-auto bg-surface-container-low border-r border-outline-variant"
-  >
+  <div class="column full-height overflow-y-auto">
     <!-- Brand Section -->
     <div class="p-4">
       <div class="flex items-center gap-2 text-primary font-black">
@@ -42,7 +40,7 @@
           "
         />
 
-        <div class="overflow-hidden flex-1">
+        <div class="overflow-hidden col-grow">
           <p
             class="truncate"
             style="
@@ -73,7 +71,7 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="flex-1 px-4 space-y-1">
+    <nav class="col-grow px-4 space-y-1">
       <router-link
         to="/dashboard"
         class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary bg-surface-container-high border-r-4 border-primary transition-all duration-200 active-nav"
@@ -99,7 +97,7 @@
       <!-- CTA -->
       <div class="px-4 mb-4">
         <button
-          class="w-full py-3 bg-primary text-on-primary font-bold rounded-lg flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all"
+          class="full-width py-3 bg-primary text-on-primary font-bold rounded-lg flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all"
           style="
             font-size: 13px;
             font-weight: 700;
@@ -158,7 +156,7 @@
         </a>
       </div>
     </div>
-  </aside>
+  </div>
 </template>
 
 <script setup>
