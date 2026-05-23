@@ -1,0 +1,31 @@
+lear---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	input(input)
+	planner(planner)
+	tool(tool)
+	executor(executor)
+	retry_handler(retry_handler)
+	error_handler(error_handler)
+	response(response)
+	output(output)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> input;
+	executor -. &nbsp;error&nbsp; .-> error_handler;
+	executor -.-> response;
+	executor -. &nbsp;retry&nbsp; .-> retry_handler;
+	input --> planner;
+	planner -.-> executor;
+	planner -.-> tool;
+	response --> output;
+	retry_handler --> executor;
+	tool --> executor;
+	error_handler --> __end__;
+	output --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
