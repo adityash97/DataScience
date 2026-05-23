@@ -45,7 +45,7 @@ class ExecutorAgent(BaseAgent):
         if tool_used:
             messages.append(f'[Executor] Incorporating tool result — {tool_summary}')
         messages.append('[Executor] Synthesizing intermediate result...')
-
+        # import pdb;pdb.set_trace()
         return {
             'current_agent': 'executor',
             'current_step': 'executing',

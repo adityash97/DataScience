@@ -22,7 +22,7 @@ def run(payload: dict) -> dict:
             if wf_id is None:
                 return {'tool': name, 'success': False, 'error': 'Missing id for workflow lookup.'}
             wf = Workflow.objects.filter(pk=wf_id).values('id', 'name', 'workflow_type', 'is_active').first()
-            return {'tool': name, 'success': bool(wf), 'resource': resource, 'data': wf or {}}
+            return {'tool': name, 'success': bool(wf), 'resource': resource, 'result': wf or {}}
 
         if resource == 'execution':
             ex_id = payload.get('id')
@@ -31,7 +31,7 @@ def run(payload: dict) -> dict:
             ex = WorkflowExecution.objects.filter(pk=ex_id).values(
                 'id', 'workflow_id', 'status', 'created_at', 'completed_at'
             ).first()
-            return {'tool': name, 'success': bool(ex), 'resource': resource, 'data': ex or {}}
+            return {'tool': name, 'success': bool(ex), 'resource': resource, 'result': ex or {}}
 
         # default: recent executions
         limit = int(payload.get('limit', 5))
@@ -40,7 +40,7 @@ def run(payload: dict) -> dict:
             .order_by('-created_at')
             .values('id', 'workflow_id', 'status', 'created_at')[:limit]
         )
-        return {'tool': name, 'success': True, 'resource': 'recent_executions', 'data': rows, 'count': len(rows)}
+        return {'tool': name, 'success': True, 'resource': 'recent_executions', 'result': rows, 'count': len(rows)}
     except Exception as exc:
         logger.exception('[database_tool] Query failed')
         return {'tool': name, 'success': False, 'error': str(exc)}

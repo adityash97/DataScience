@@ -39,7 +39,7 @@ class PlannerAgent(BaseAgent):
 
     def run(self, state: WorkflowState) -> dict:
         user_input = state['user_input']
-        tool_name, tool_input = _detect_tool(user_input)
+        tool_name, tool_input = _detect_tool(user_input) # which tool (if any) is needed to fulfill the user request?
 
         logger.info('[PlannerAgent] Plan for: %.60s | tool=%s', user_input, tool_name or 'none')
 

@@ -12,14 +12,32 @@ class ResponseAgent(BaseAgent):
     name = 'response'
 
     def run(self, state: WorkflowState) -> dict:
+        # import pdb;pdb.set_trace()
         tool_used = state.get('tool_used', '')
-        logger.info('[ResponseAgent] Formatting final response | tool=%s', tool_used or 'none')
+        logger.info('[ResponseAgent] Fnormatting final respose | tool=%s', tool_used or 'none')
+        if state["tool_result"]['tool'] == 'web_search':
 
+            tool_result = state.get('tool_result', {})
+            results = tool_result.get('results', [])
+
+            formatted_results = '\n'.join(
+                [
+                    '\n'+f'- {item.get("title", "")}. Source: {item.get("url", "")}'
+                    for item in results
+                ]
+            )
+
+            final_result = (
+                f'Orchestrated response for query "{state["user_input"]}":\n\n'
+                f'{formatted_results}'
+            )
+        else:
+            final_result = f'Orchestrated response for query "{state["user_input"]}": {state["tool_result"]}'
         return {
             'current_agent': 'response',
             'current_step': 'responding',
             'output': {
-                'result': f'Orchestrated response for: "{state["user_input"]}"',
+                'result': final_result,
                 'agents_executed': ['Planner', 'Tool', 'Executor', 'Response'] if tool_used else ['Planner', 'Executor', 'Response'],
                 'execution_plan': state.get('execution_plan', {}),
                 'execution_result': state.get('execution_result', {}),

@@ -18,10 +18,10 @@ def run(payload: dict) -> dict:
     logger.info('[web_search_tool] Query: %.80s', query)
 
     try:
-        from duckduckgo_search import DDGS  # optional dependency
+        from ddgs import DDGS  # duckduckgo_search library, not to be confused with duckduckgo python package
 
         with DDGS() as ddgs:
-            hits = list(ddgs.text(query, max_results=3))
+            hits = list(ddgs.text(query, max_results=2))
         results = [
             {
                 'title': h.get('title', ''),
@@ -35,7 +35,7 @@ def run(payload: dict) -> dict:
         logger.info('[web_search_tool] duckduckgo_search not installed — returning stub results')
         return {
             'tool': name,
-            'success': True,
+            'success': False,
             'query': query,
             'results': [
                 {'title': f'Result 1 for "{query}"', 'snippet': 'Stub snippet — install duckduckgo_search for live results.', 'url': 'https://example.com/1'},

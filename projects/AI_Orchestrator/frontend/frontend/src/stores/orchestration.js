@@ -100,13 +100,16 @@ export const useOrchestrationStore = defineStore('orchestration', () => {
 
   const finalResponse = computed(() => {
     const output = execution.value?.output_payload || {}
+    const rawToolResult = output.tool_result || {}
     return {
       title: output.result ? `Response — ${execution.value?.workflow_name || ''}` : 'Awaiting response',
       content: output.result || 'No response yet. Start a workflow to see output here.',
       agents: output.agents_executed || [],
       tool: output.tool_used || null,
       retryCount: output.retry_count ?? 0,
-      sessionId: execution.value ? `exec-${execution.value.id}` : '—'
+      sessionId: execution.value ? `exec-${execution.value.id}` : '—',
+      toolResults: rawToolResult.results || [],
+      toolSource: rawToolResult.tool || null,
     }
   })
 
