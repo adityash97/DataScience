@@ -5,4 +5,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/health/', include('health.urls')),
     path('api/workflows/', include('workflows.urls')),
+    path('api/token/', include('orchestrator_auth.urls')),
 ]
